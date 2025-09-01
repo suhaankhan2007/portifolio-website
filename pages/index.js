@@ -52,8 +52,8 @@ export default function Home() {
       desc: "Achieved 3rd place out of 20,000+ entries at TXSEF for dark matter detection research using AI-enhanced microlensing. Developed ML model with 97% accuracy that detects microlensing events 10x faster than traditional methods. Research paper in progress.",
       tags: ["AI", "Research", "Astrophysics", "Machine Learning"],
       href: "#txsef",
-      paperLink: "https://www.researchgate.net/publication/393538243_The_Utilization_of_AI_in_Gravitational_Microlensing_Techniques_to_Further_Dark_Matter_Detection",
-      paperThumbnail: "/images/ResearchPaperThumbnail.png",
+      paperLink: "https://txsef.tamu.edu/awards/2025-category-awards/",
+      paperThumbnail: "/images/TXSEF_Photo.png",
     },
     {
       title: "BOSS Algorithm Research at SMU",
@@ -83,11 +83,11 @@ export default function Home() {
               <a href="/" className="text-xl font-semibold hover:opacity-95">Suhaan Khan</a>
             </div>
             <div className="space-x-4 text-sm text-slate-300">
-              <a className="inline-link" href="#projects">Projects</a>
-              <a className="inline-link" href="#achievements">Achievements</a>
-              <a className="inline-link" href="#about">About</a>
-              <a className="inline-link" href="#contact">Contact</a>
-              <a className="inline-link" href="https://www.linkedin.com/in/suhaan-khan-333ab22ba/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="inline-link nav-link" href="#projects">Projects</a>
+              <a className="inline-link nav-link" href="#achievements">Achievements</a>
+              <a className="inline-link nav-link" href="#about">About</a>
+              <a className="inline-link nav-link" href="#contact">Contact</a>
+              <a className="inline-link nav-link" href="https://www.linkedin.com/in/suhaan-khan-333ab22ba/" target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
           </nav>
 
@@ -119,8 +119,8 @@ export default function Home() {
               </div>
 
               <div className="mt-6 flex gap-3">
-                <a href="#projects" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md shadow">See my work</a>
-                <a href="#contact" className="px-4 py-2 border border-indigo-400 text-indigo-200 rounded-md">Get in touch</a>
+                <a href="#projects" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md shadow btn-primary">See my work</a>
+                <a href="#contact" className="px-4 py-2 border border-indigo-400 text-indigo-200 rounded-md btn-primary">Get in touch</a>
               </div>
             </FadeInSection>
 
@@ -132,7 +132,7 @@ export default function Home() {
               alt="Suhaan Khan"
               width={800}
               height={800}
-              className="object-cover rounded-full w-72 h-72 shadow-lg border-4 border-indigo-400"
+              className="object-cover rounded-full w-72 h-72 shadow-lg border-4 border-indigo-400 profile-image"
             />
             </FadeInSection>
           </header>
@@ -155,18 +155,18 @@ export default function Home() {
                       href={p.paperLink}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-3 block"
+                      className="mt-3 block research-link"
                     >
                       <img
                         src={p.paperThumbnail}
                         alt={`Thumbnail for ${p.title}`}
-                        className="rounded-lg border border-slate-700 hover:opacity-90 transition"
+                        className="rounded-lg border border-slate-700"
                       />
                     </a>
                   )}
 
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {p.tags.map((t) => <span key={t} className="text-xs px-2 py-1 rounded border text-slate-200">{t}</span>)}
+                      {p.tags.map((t) => <span key={t} className="text-xs px-2 py-1 rounded border text-slate-200 tag">{t}</span>)}
                     </div>
                   </article>
                 ))}
@@ -246,10 +246,6 @@ export default function Home() {
                       <li>Exploring AI models for exoplanet detection and medical imaging</li>
                     </ul>
                   </div>
-
-                  <p className="text-slate-400 text-sm">
-                    I'm passionate about exploring the intersection of AI and ML with astrophysics, and I love working with others to create opportunities for students. Contact me if you want to work on a research project or startup.
-                  </p>
                 </div>
 
                 <div>
@@ -257,7 +253,7 @@ export default function Home() {
                     <h4 className="font-semibold text-white">Tech stack</h4>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {["Python","PyTorch","TensorFlow","C++","Java","React Native","JavaScript","HTML/CSS","Linux","Git"].map(t => (
-                        <span key={t} className="px-3 py-1 border rounded text-sm text-slate-200">{t}</span>
+                        <span key={t} className="px-3 py-1 border rounded text-sm text-slate-200 tag">{t}</span>
                       ))}
                     </div>
                   </div>
@@ -292,8 +288,8 @@ export default function Home() {
                   <p className="text-slate-300 mt-1">GitHub: <a className="inline-link" href="https://github.com/suhaankhan07" target="_blank" rel="noreferrer">github.com/suhaankhan07</a></p>
                 </div>
                 <div className="mt-4 sm:mt-0 flex gap-3">
-                  <a href="https://github.com/suhaankhan07" target="_blank" rel="noreferrer" className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md">GitHub</a>
-                  <a href="https://www.linkedin.com/in/suhaan-khan-333ab22ba/" target="_blank" rel="noreferrer" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-md text-white">LinkedIn</a>
+                  <a href="https://github.com/suhaankhan07" target="_blank" rel="noreferrer" className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md btn-primary">GitHub</a>
+                  <a href="https://www.linkedin.com/in/suhaan-khan-333ab22ba/" target="_blank" rel="noreferrer" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-md text-white btn-primary">LinkedIn</a>
                 </div>
               </div>
             </FadeInSection>

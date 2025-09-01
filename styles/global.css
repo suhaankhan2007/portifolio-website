@@ -10,6 +10,12 @@
   --card-border: rgba(255,255,255,0.06);
 }
 html,body,#__next { height: 100%; }
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
@@ -31,20 +37,226 @@ body {
   padding-right: 1.25rem;
 }
 
-/* glassy card */
+/* Enhanced glassy card with subtle hover effects */
 .glass {
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--card-border);
   backdrop-filter: blur(6px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* subtle underlines for links */
+.glass:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(124, 58, 237, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 8px 20px -5px rgba(0, 0, 0, 0.08),
+    0 3px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Subtle glow effect for glass cards - only on intentional hover */
+.glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.08), transparent);
+  transition: left 0.6s ease;
+  opacity: 0;
+}
+
+.glass:hover::before {
+  left: 100%;
+  opacity: 1;
+}
+
+/* Enhanced inline link hover effects */
 a.inline-link {
   color: inherit;
   text-decoration: none;
   border-bottom: 1px dashed rgba(230,238,248,0.12);
+  transition: all 0.3s ease;
+  position: relative;
 }
-a.inline-link:hover { color: #fff; border-bottom-style: solid; }
+
+a.inline-link:hover { 
+  color: #fff; 
+  border-bottom-style: solid;
+  border-bottom-color: rgba(124, 58, 237, 0.6);
+}
+
+/* Subtle underline animation for inline links */
+a.inline-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  transition: width 0.3s ease;
+}
+
+a.inline-link:hover::after {
+  width: 100%;
+}
+
+/* Enhanced button animations */
+.btn-primary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px -5px rgba(124, 58, 237, 0.2);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Enhanced tag animations */
+.tag {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tag:hover {
+  transform: translateY(-0.5px);
+  border-color: rgba(124, 58, 237, 0.3);
+  background: rgba(124, 58, 237, 0.08);
+}
+
+/* Subtle pulse animation for important elements */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.pulse-subtle {
+  animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+/* Enhanced research link hover effects */
+.research-link {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.research-link:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 20px 25px -5px rgba(124, 58, 237, 0.25),
+    0 10px 10px -5px rgba(124, 58, 237, 0.1),
+    0 0 0 1px rgba(124, 58, 237, 0.3);
+}
+
+.research-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+.research-link:hover::before {
+  opacity: 1;
+}
+
+.research-link img {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.research-link:hover img {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+/* Glowing border effect on hover */
+.research-link::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #7c3aed, #3b82f6, #7c3aed);
+  border-radius: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.research-link:hover::after {
+  opacity: 0.6;
+}
+
+/* Enhanced navigation hover effects */
+.nav-link {
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Smooth section transitions */
+section {
+  transition: opacity 0.5s ease;
+}
+
+/* Enhanced profile image hover effect */
+.profile-image {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-image:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 20px 25px -5px rgba(124, 58, 237, 0.2),
+    0 10px 10px -5px rgba(124, 58, 237, 0.1);
+}
 
 /* Fade-in utility: we rely mostly on Tailwind classes but define a short helper here */
 .fade-preserve {
