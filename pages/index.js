@@ -38,8 +38,8 @@ function FadeInSection({ children, className = "", delay = 0 }) {
   );
 }
 
-/* Mouse-tracking 3D tilt card. */
-function TiltCard({ children, className = "" }) {
+/* Mouse-tracking 3D tilt card. When `href` is set, the whole card is clickable. */
+function TiltCard({ children, className = "", href }) {
   const ref = useRef(null);
 
   function handleMove(e) {
@@ -55,13 +55,29 @@ function TiltCard({ children, className = "" }) {
     const el = ref.current;
     if (el) el.style.transform = "perspective(900px) rotateY(0) rotateX(0) translateY(0)";
   }
+  function open() {
+    if (href) window.open(href, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={reset}
-      className={`tilt-card grad-card ${className}`}
+      onClick={href ? open : undefined}
+      onKeyDown={
+        href
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                open();
+              }
+            }
+          : undefined
+      }
+      role={href ? "link" : undefined}
+      tabIndex={href ? 0 : undefined}
+      className={`tilt-card grad-card ${href ? "cursor-pointer" : ""} ${className}`}
     >
       {children}
     </div>
@@ -112,6 +128,7 @@ function CardLink({ href, children, icon }) {
       href={href}
       target="_blank"
       rel="noreferrer"
+      onClick={(e) => e.stopPropagation()}
       className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-white transition-colors"
     >
       {icon}
@@ -212,14 +229,6 @@ export default function Home() {
       ],
     },
     {
-      name: "AQI Forecasting",
-      where: "NASA Space Apps",
-      blurb:
-        "Air-quality forecasting that predicts the next 24 hours for hundreds of cities and tells you the best time to be outside — replacing hours of manual lookup with ensemble ML.",
-      tags: ["Next.js", "XGBoost", "FastAPI", "Ensemble ML"],
-      links: [{ label: "GitHub", href: GITHUB, icon: <GitHubIcon width="16" height="16" /> }],
-    },
-    {
       name: "MemoryMap",
       where: "Systems · C++",
       blurb:
@@ -230,6 +239,14 @@ export default function Home() {
         { label: "Live", href: "https://memorymap-psi.vercel.app/", icon: <LinkIcon /> },
         { label: "GitHub", href: "https://github.com/suhaankhan2007/MemoryMap", icon: <GitHubIcon width="16" height="16" /> },
       ],
+    },
+    {
+      name: "AQI Forecasting",
+      where: "NASA Space Apps",
+      blurb:
+        "Air-quality forecasting that predicts the next 24 hours for hundreds of cities and tells you the best time to be outside — replacing hours of manual lookup with ensemble ML.",
+      tags: ["Next.js", "XGBoost", "FastAPI", "Ensemble ML"],
+      links: [{ label: "GitHub", href: GITHUB, icon: <GitHubIcon width="16" height="16" /> }],
     },
   ];
 
@@ -282,7 +299,7 @@ export default function Home() {
 
           <div ref={heroRef} className="relative grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 items-center w-full py-16">
             <FadeInSection>
-              <p className="eyebrow mb-4">AI Engineer · Researcher · Builder</p>
+              <p className="eyebrow mb-4">Founder, Framelight · G-Fellow · UIUC</p>
               <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight text-white">
                 Hi, I'm <span className="gradient-text">Suhaan</span>.
               </h1>
@@ -319,26 +336,25 @@ export default function Home() {
         {/* ABOUT */}
         <section id="about" className="py-20">
           <FadeInSection>
-            <SectionHeading eyebrow="About" title="Curiosity is the through-line" />
+            <SectionHeading eyebrow="About" title="My story" />
           </FadeInSection>
           <div className="grid md:grid-cols-[1.5fr_1fr] gap-8">
             <FadeInSection>
               <div className="text-slate-300 text-lg leading-relaxed space-y-4">
                 <p>
-                  I like living at the intersection of building and discovering. One week I'm tuning a
-                  computer-vision model so a camera can give you real-time composition feedback; the next
-                  I'm reading network traffic in Rust to understand how the world is quietly switching to
-                  quantum-safe cryptography, or training models to find the faint fingerprints of dark
-                  matter in starlight.
+                  I immigrated from India at five without a word of English, then moved five times in two
+                  years — Chicago, Denver, Miami, Mississippi — before my family finally settled in
+                  Austin. Constantly starting over taught me to adapt fast and stay curious about
+                  wherever I land.
                 </p>
                 <p>
-                  What ties it together isn't a single field — it's the urge to understand something
-                  deeply and then make it useful for other people. I love starting things: a startup, a
-                  nonprofit, a hackathon project at 3am that turns into something real.
+                  These days I'm building my own startup, <strong className="text-white font-semibold">Framelight</strong>,
+                  where we guide people to where the best composition in a scene lies so they can take
+                  better photos. I source startups as a <strong className="text-white font-semibold">G-Fellow</strong>,
+                  and I do research across AI, astronomy, and cybersecurity.
                 </p>
                 <p className="text-slate-400">
-                  Away from the keyboard you'll find me playing the clarinet, on a cricket pitch, deep in
-                  a good book, or just looking up at the night sky trying to figure out what's out there.
+                  And when I step away from the screen, you'll find me playing the clarinet.
                 </p>
               </div>
             </FadeInSection>
@@ -368,7 +384,7 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             {ventures.map((v, i) => (
               <FadeInSection key={v.name} delay={i * 90}>
-                <TiltCard className="p-6 h-full flex flex-col">
+                <TiltCard href={v.links && v.links[0] && v.links[0].href} className="p-6 h-full flex flex-col">
                   {v.thumb && (
                     <div className="thumb mb-5">
                       <img src={v.thumb} alt={`${v.name} preview`} />
@@ -401,7 +417,7 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2">
             {research.map((r, i) => (
               <FadeInSection key={r.name} delay={i * 90}>
-                <TiltCard className="p-6 h-full">
+                <TiltCard href={r.link} className="p-6 h-full">
                   <h3 className="font-display text-xl font-bold text-white mb-3">{r.name}</h3>
                   <p className="text-slate-300 text-sm leading-relaxed mb-4">{r.blurb}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -413,7 +429,7 @@ export default function Home() {
                     </span>
                   )}
                   {r.link && (
-                    <a href={r.link} target="_blank" rel="noreferrer" className="inline-link text-sm text-cyan-300 font-medium">
+                    <a href={r.link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-link text-sm text-cyan-300 font-medium">
                       Read the paper →
                     </a>
                   )}
@@ -428,10 +444,10 @@ export default function Home() {
           <FadeInSection>
             <SectionHeading eyebrow="Playground" title="Hackathons & things I've made" />
           </FadeInSection>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start">
             {projects.map((p, i) => (
               <FadeInSection key={p.name} delay={(i % 3) * 90}>
-                <TiltCard className="p-6 h-full flex flex-col">
+                <TiltCard href={p.links && p.links[0] && p.links[0].href} className="p-6 flex flex-col">
                   {p.thumb && (
                     <div className="thumb mb-5">
                       <img src={p.thumb} alt={`${p.name} preview`} />
@@ -439,7 +455,7 @@ export default function Home() {
                   )}
                   <h3 className="font-display text-lg font-bold text-white">{p.name}</h3>
                   <p className="eyebrow mb-3 mt-1">{p.where}</p>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-4 flex-grow">{p.blurb}</p>
+                  <p className="text-slate-300 text-sm leading-relaxed mb-4">{p.blurb}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
                   </div>
