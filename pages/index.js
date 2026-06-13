@@ -140,6 +140,7 @@ function CardLink({ href, children, icon }) {
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef(null);
+  const progressRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -147,9 +148,28 @@ export default function Home() {
       if (heroRef.current) {
         heroRef.current.style.transform = `translateY(${Math.min(window.scrollY * 0.12, 60)}px)`;
       }
+      if (progressRef.current) {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const pct = max > 0 ? doc.scrollTop / max : 0;
+        progressRef.current.style.transform = `scaleX(${pct})`;
+      }
+    };
+    let raf = 0;
+    const onMove = (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty("--mx", `${e.clientX}px`);
+        document.documentElement.style.setProperty("--my", `${e.clientY}px`);
+        raf = 0;
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", onMove);
+    };
   }, []);
 
   const ventures = [
@@ -157,13 +177,13 @@ export default function Home() {
       name: "Framelight",
       role: "Co-Founder & AI Engineer",
       blurb:
-        "A startup I co-founded that coaches your photo's composition in real time — before you even press the shutter. I build the computer-vision and ML core that turns a live camera frame into instant, human-feeling aesthetic feedback.",
+        "A startup I co-founded that coaches your photo's composition in real time, before you even press the shutter. I build the computer-vision and ML core that turns a live camera frame into instant, human-feeling aesthetic feedback.",
       tags: ["OpenCV", "PyTorch", "FastAPI", "React Native", "NIMA"],
       thumb: "/images/framelight.png",
       links: [{ label: "framelight.ai", href: "https://framelight.ai/", icon: <LinkIcon /> }],
     },
     {
-      name: "CogniSol — AI Forge",
+      name: "CogniSol: AI Forge",
       role: "AI Engineer",
       blurb:
         "On an agentic team of grad and undergrad builders, designing multi-agent systems for an emerging healthcare platform and a multi-tenant backend meant to scale to thousands of teams.",
@@ -173,14 +193,14 @@ export default function Home() {
       name: "Youth Inquiry Network",
       role: "Co-Founder · 501(c)(3)",
       blurb:
-        "A nonprofit I co-founded to hand real research opportunities to high schoolers around the world — with an ML matching layer that pairs curious students with mentors and projects.",
+        "A nonprofit I co-founded to hand real research opportunities to high schoolers around the world, with an ML matching layer that pairs curious students with mentors and projects.",
       tags: ["Nonprofit", "NLP", "Semantic Search", "Mentorship"],
     },
     {
       name: "G-Fellows",
       role: "Venture Fellow · Smart Venture Media",
       blurb:
-        "An invite-only cohort of student VCs and founders from schools like Stanford, Harvard, Penn, and Illinois. I source promising startups, track emerging trends, and nominate founders to pitch top investors — learning directly from partners at a16z, Pear, IVP, and OpenAI. It's the network, the reps, and the credibility to walk into any room in venture and belong.",
+        "An invite-only cohort of student VCs and founders from schools like Stanford, Harvard, Penn, and Illinois. I source promising startups, track emerging trends, and nominate founders to pitch top investors, learning directly from partners at a16z, Pear, IVP, and OpenAI. It's the network, the reps, and the credibility to walk into any room in venture and belong.",
       tags: ["Venture Capital", "Sourcing", "Founders", "Trends"],
       links: [{ label: "smartventuremedia.com", href: "https://www.smartventuremedia.com/fellowship", icon: <LinkIcon /> }],
     },
@@ -190,14 +210,14 @@ export default function Home() {
     {
       name: "Post-Quantum Cryptography @ NCSA",
       blurb:
-        "As an undergraduate research fellow, I study how the world is actually migrating to quantum-safe cryptography. I wrote a memory-safe Rust engine that watches live network traffic and classifies cryptographic signals by heuristic — helping tools like Zeek see the post-quantum transition as it happens.",
+        "As an undergraduate research fellow, I study how the world is actually migrating to quantum-safe cryptography. I wrote a memory-safe Rust engine that watches live network traffic and classifies cryptographic signals by heuristic to help tools like Zeek see the post-quantum transition as it happens.",
       tags: ["Rust", "libpcap", "tls-parser", "PyTorch", "Network Security"],
       status: "Paper pending submission · IEEE",
     },
     {
       name: "Dark Matter via Gravitational Microlensing",
       blurb:
-        "First-author astrophysics research using AI to spot gravitational microlensing events far faster than traditional pipelines — a new lens on detecting dark matter. Presented at state and national science fairs and symposia.",
+        "First-author astrophysics research using AI to spot gravitational microlensing events far faster than traditional pipelines, opening a new lens on detecting dark matter. Presented at state and national science fairs and symposia.",
       tags: ["Python", "PyTorch", "Astrophysics", "Research"],
       link: "https://www.researchgate.net/publication/393538243_The_Utilization_of_AI_in_Gravitational_Microlensing_Techniques_to_Further_Dark_Matter_Detection",
     },
@@ -208,7 +228,7 @@ export default function Home() {
       name: "Signify",
       where: "TreeHacks 2026",
       blurb:
-        "A Zoom-integrated ASL translation platform so the Deaf and hard-of-hearing community can learn from meetings and educational content in real time — with multimodal pipelines that turn talks into ASL learning sessions.",
+        "A Zoom-integrated ASL translation platform so the Deaf and hard-of-hearing community can learn from meetings and educational content in real time, using multimodal pipelines that turn talks into ASL learning sessions.",
       tags: ["Zoom RTS", "GPT-4o", "WebSockets", "Express"],
       thumb: "/images/signify.png",
       links: [
@@ -220,7 +240,7 @@ export default function Home() {
       name: "GeneAI",
       where: "HackIllinois 2026 · Winner",
       blurb:
-        "Predicts drug-interaction severity from molecular structure (SMILES) and CYP450 gene signals, with a backend that integrates a massive compound library for real-time queries — validated alongside physicians.",
+        "Predicts drug-interaction severity from molecular structure (SMILES) and CYP450 gene signals, with a backend that integrates a massive compound library for real-time queries, validated alongside physicians.",
       tags: ["FastAPI", "Pydantic", "ML", "Bioinformatics"],
       thumb: "/images/geneai.png",
       links: [
@@ -232,7 +252,7 @@ export default function Home() {
       name: "MemoryMap",
       where: "Systems · C++",
       blurb:
-        "A visualization of the stack and heap that makes dynamic memory allocation in C++ click — built to teach the thing everyone finds hardest to picture.",
+        "A visualization of the stack and heap that makes dynamic memory allocation in C++ click. I built it to teach the thing everyone finds hardest to picture.",
       tags: ["C++", "JavaScript", "Visualization"],
       thumb: "/images/memorymap.png",
       links: [
@@ -244,7 +264,7 @@ export default function Home() {
       name: "AQI Forecasting",
       where: "NASA Space Apps",
       blurb:
-        "Air-quality forecasting that predicts the next 24 hours for hundreds of cities and tells you the best time to be outside — replacing hours of manual lookup with ensemble ML.",
+        "Air-quality forecasting that predicts the next 24 hours for hundreds of cities and tells you the best time to be outside, replacing hours of manual lookup with ensemble ML.",
       tags: ["Next.js", "XGBoost", "FastAPI", "Ensemble ML"],
       links: [{ label: "GitHub", href: GITHUB, icon: <GitHubIcon width="16" height="16" /> }],
     },
@@ -252,10 +272,10 @@ export default function Home() {
 
   const recognition = [
     "Hoveida Foundation Entrepreneurship Prize · Cozad",
-    "HackIllinois 2026 — Winner",
-    "TreeHacks 2026 — Finalist",
+    "HackIllinois 2026 · Winner",
+    "TreeHacks 2026 · Finalist",
     "International Research Olympiad Scholar",
-    "Texas Science & Engineering Fair — 3rd Place",
+    "Texas Science & Engineering Fair · 3rd Place",
   ];
 
   return (
@@ -264,8 +284,10 @@ export default function Home() {
         <meta name="author" content="Suhaan Khan" />
       </Head>
 
-      {/* animated backdrop */}
+      {/* animated backdrop + interactive flourishes */}
       <div className="bg-aurora" />
+      <div className="cursor-glow" />
+      <div ref={progressRef} className="scroll-progress" />
 
       {/* NAV */}
       <div className={`nav-bar ${scrolled ? "scrolled" : ""}`}>
@@ -309,7 +331,7 @@ export default function Home() {
               </p>
               <p className="mt-3 text-slate-400 max-w-2xl">
                 I'm always looking to collaborate on research and hear your crazy entrepreneurial
-                ideas — so DM or email me.
+                ideas, so DM or email me.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -343,7 +365,7 @@ export default function Home() {
               <div className="text-slate-300 text-lg leading-relaxed space-y-4">
                 <p>
                   I immigrated from India at five without a word of English, then moved five times in two
-                  years — Chicago, Denver, Miami, Mississippi — before my family finally settled in
+                  years (Chicago, Denver, Miami, and Mississippi) before my family finally settled in
                   Austin. Constantly starting over taught me to adapt fast and stay curious about
                   wherever I land.
                 </p>
@@ -354,7 +376,8 @@ export default function Home() {
                   and I do research across AI, astronomy, and cybersecurity.
                 </p>
                 <p className="text-slate-400">
-                  And when I step away from the screen, you'll find me playing the clarinet.
+                  And when I step away from the screen, you'll find me playing the clarinet, playing
+                  cricket, or travelling somewhere new.
                 </p>
               </div>
             </FadeInSection>
@@ -497,7 +520,14 @@ export default function Home() {
                 The fastest way to reach me is email or LinkedIn.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <a href="mailto:suhaankhanisme@gmail.com" className="btn btn-primary">Email me</a>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=suhaankhanisme@gmail.com&su=Hi%20Suhaan"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary"
+                >
+                  Email me
+                </a>
                 <a href={LINKEDIN} target="_blank" rel="noreferrer" className="btn btn-ghost">
                   <LinkedInIcon width="18" height="18" /> LinkedIn
                 </a>

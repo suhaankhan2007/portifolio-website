@@ -75,6 +75,35 @@ body {
   to   { transform: translate3d(-7rem, -5rem, 0) scale(1); }
 }
 
+/* Cursor spotlight that follows the mouse (subtle, behind content) */
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 58, 237, 0.10),
+    rgba(34, 211, 238, 0.05) 25%,
+    transparent 45%
+  );
+  transition: background 0.1s ease-out;
+}
+
+/* Gradient scroll-progress bar pinned to the very top */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 50;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
 /* ---------- Layout ---------- */
 .main-container {
   max-width: 78rem;
