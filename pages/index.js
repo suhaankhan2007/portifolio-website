@@ -294,7 +294,44 @@ export default function Home() {
   return (
     <>
       <Head>
-        <meta name="author" content="Suhaan Khan" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Suhaan Khan",
+              url: "https://suhaankhan.com",
+              image: "https://suhaankhan.com/images/Suhaan_Khan_Chicago_Headshot_2.jpg",
+              jobTitle: "AI Engineer, Researcher & Founder",
+              description:
+                "AI engineer, researcher, and founder at the University of Illinois Urbana-Champaign. Co-founder of Framelight, post-quantum cryptography researcher at NCSA, and award-winning hackathon builder.",
+              worksFor: { "@type": "Organization", name: "Framelight", url: "https://framelight.ai/" },
+              affiliation: {
+                "@type": "CollegeOrUniversity",
+                name: "University of Illinois Urbana-Champaign",
+              },
+              alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: "University of Illinois Urbana-Champaign",
+              },
+              knowsAbout: [
+                "Artificial Intelligence",
+                "Machine Learning",
+                "Computer Vision",
+                "Post-Quantum Cryptography",
+                "Cybersecurity",
+                "Astrophysics",
+                "Entrepreneurship",
+              ],
+              sameAs: [
+                "https://www.linkedin.com/in/suhaan-khan-333ab22ba/",
+                "https://github.com/suhaankhan2007",
+                "https://devpost.com/suhaankhanisme",
+              ],
+            }),
+          }}
+        />
       </Head>
 
       {/* animated backdrop + interactive flourishes */}
