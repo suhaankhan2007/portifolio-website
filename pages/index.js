@@ -225,6 +225,18 @@ export default function Home() {
 
   const projects = [
     {
+      name: "Rem",
+      where: "UC Berkeley AI Hackathon 2026",
+      blurb:
+        "Relive your memories by walking through them. Rem turns your photos and videos into a navigable 3D scene with Gaussian Splatting, so a moment becomes a space you can move inside. I built the video-to-splat pipeline (frame extraction, COLMAP camera poses, gsplat training) and the backend wiring across Redis, Supabase, and Arize.",
+      tags: ["Gaussian Splatting", "COLMAP", "Three.js", "Redis"],
+      thumb: "/images/rem.jpg",
+      links: [
+        { label: "GitHub", href: "https://github.com/haileyl6171/rem", icon: <GitHubIcon width="16" height="16" /> },
+        { label: "Devpost", href: "https://devpost.com/software/rem-xk6i7d", icon: <LinkIcon /> },
+      ],
+    },
+    {
       name: "Signify",
       where: "TreeHacks 2026",
       blurb:
@@ -274,6 +286,7 @@ export default function Home() {
     "Hoveida Foundation Entrepreneurship Prize · Cozad",
     "HackIllinois 2026 · Winner",
     "TreeHacks 2026 · Finalist",
+    "UC Berkeley AI Hackathon 2026",
     "International Research Olympiad Scholar",
     "Texas Science & Engineering Fair · 3rd Place",
   ];
@@ -497,10 +510,15 @@ export default function Home() {
         <section className="py-16">
           <FadeInSection>
             <SectionHeading eyebrow="Recognition" title="A few highlights" />
-            <div className="flex flex-wrap gap-3">
-              {recognition.map((r) => (
-                <span key={r} className="grad-card px-5 py-3 text-sm text-slate-200">{r}</span>
-              ))}
+            <div className="marquee">
+              <div className="marquee-track">
+                {recognition.map((r) => (
+                  <span key={r} className="marquee-item grad-card px-5 py-3 text-sm text-slate-200">{r}</span>
+                ))}
+                {recognition.map((r) => (
+                  <span key={`dup-${r}`} aria-hidden="true" className="marquee-item grad-card px-5 py-3 text-sm text-slate-200">{r}</span>
+                ))}
+              </div>
             </div>
           </FadeInSection>
         </section>
