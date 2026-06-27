@@ -6,7 +6,7 @@ const SITE_URL = "https://suhaankhan.com";
 const TITLE = "Suhaan Khan — AI Engineer, Researcher & Founder";
 const DESCRIPTION =
   "Suhaan Khan is an AI engineer, researcher, and founder at the University of Illinois Urbana-Champaign. Co-founder of Framelight, post-quantum cryptography researcher at NCSA, and award-winning hackathon builder working across AI, computer vision, cybersecurity, and astrophysics.";
-const OG_IMAGE = `${SITE_URL}/images/Suhaan_Khan_Chicago_Headshot_2.jpg`;
+const OG_IMAGE = `${SITE_URL}/images/og.png`;
 
 export default function App({ Component, pageProps }) {
   return (
@@ -36,9 +36,9 @@ export default function App({ Component, pageProps }) {
         <meta property="og:description" content={DESCRIPTION} />
         <meta property="og:url" content={SITE_URL} />
         <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="800" />
-        <meta property="og:image:alt" content="Suhaan Khan" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Suhaan Khan — AI Engineer, Researcher & Founder" />
         <meta property="og:locale" content="en_US" />
 
         {/* Twitter / X */}
