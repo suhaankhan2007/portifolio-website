@@ -208,6 +208,15 @@ export default function Home() {
 
   const research = [
     {
+      name: "Breaking Conformal FDR Control in Graph Anomaly Detection",
+      blurb:
+        "First-author paper accepted to the NeurIPS 2026 TAE workshop. I show that the standard precaution in conformal anomaly detection, restricting calibration to clean nodes, is itself a covariate filter that silently breaks false-discovery-rate control, pushing realized FDR to 0.785 against a 0.10 target with no visible sign in the output. The failure tracks the detector, not the graph, and I give a label-free, deployment-time check to catch it.",
+      tags: ["Conformal Prediction", "Graph Anomaly Detection", "GNNs", "Covariate Shift"],
+      thumb: "/images/neurips-tae.png",
+      status: "Accepted (Poster) · NeurIPS 2026 TAE Workshop",
+      link: "https://openreview.net/forum?id=I614HtAuvJ",
+    },
+    {
       name: "Post-Quantum Cryptography @ NCSA",
       blurb:
         "As an undergraduate research fellow, I study how the world is actually migrating to quantum-safe cryptography. I wrote a memory-safe Rust engine that watches live network traffic and classifies cryptographic signals by heuristic to help tools like Zeek see the post-quantum transition as it happens.",
@@ -329,6 +338,7 @@ export default function Home() {
                 "https://www.linkedin.com/in/suhaan-khan-333ab22ba/",
                 "https://github.com/suhaankhan2007",
                 "https://devpost.com/suhaankhanisme",
+                "https://openreview.net/profile?id=~Suhaan_Khan1",
               ],
             }),
           }}
@@ -492,6 +502,11 @@ export default function Home() {
             {research.map((r, i) => (
               <FadeInSection key={r.name} delay={i * 90}>
                 <TiltCard href={r.link} className="p-6 h-full">
+                  {r.thumb && (
+                    <div className="thumb mb-5">
+                      <img src={r.thumb} alt={`${r.name} preview`} style={{ objectPosition: "left top" }} />
+                    </div>
+                  )}
                   <h3 className="font-display text-xl font-bold text-white mb-3">{r.name}</h3>
                   <p className="text-slate-300 text-sm leading-relaxed mb-4">{r.blurb}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
