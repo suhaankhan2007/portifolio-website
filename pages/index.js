@@ -283,6 +283,7 @@ export default function Home() {
   ];
 
   const recognition = [
+    "Siebel School Celebration of Excellence 2026",
     "Hoveida Foundation Entrepreneurship Prize · Cozad",
     "HackIllinois 2026 · Winner",
     "TreeHacks 2026 · Finalist",
